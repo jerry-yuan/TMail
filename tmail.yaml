@@ -1,0 +1,10 @@
+db:
+  driver: mysql
+  host: localhost
+  database: tmail
+  username: root
+
+smtp:
+  bind: 0.0.0.0
+  port: 1025
+  domain: t.jerryzone.cn

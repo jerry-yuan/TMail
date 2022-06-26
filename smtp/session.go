@@ -1,7 +1,6 @@
 package smtp
 
 import (
-	"TMail/domain"
 	"errors"
 	"github.com/DusanKasan/parsemail"
 	"github.com/emersion/go-smtp"
@@ -10,8 +9,8 @@ import (
 )
 
 type Session struct {
-	current *domain.Mail
-	mails   []*domain.Mail
+	current *Mail
+	mails   []*Mail
 }
 
 func (s *Session) AuthPlain(username, password string) error {
@@ -20,7 +19,7 @@ func (s *Session) AuthPlain(username, password string) error {
 
 func (s *Session) Mail(from string, opts smtp.MailOptions) error {
 	log.Println("Mail!", from)
-	s.current = domain.NewMail()
+	s.current = NewMail()
 	s.current.SetSender(from)
 	s.current.SetBodyType(opts.Body)
 	s.mails = append(s.mails, s.current)
@@ -97,6 +96,6 @@ func (s *Session) Trace() {
 func NewSession() *Session {
 	return &Session{
 		current: nil,
-		mails:   []*domain.Mail{},
+		mails:   []*Mail{},
 	}
 }
