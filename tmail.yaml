@@ -8,3 +8,6 @@ smtp:
   bind: 0.0.0.0
   port: 1025
   domain: t.jerryzone.cn
+
+oss:
+  base: /var/lib/tmail/oss

@@ -1,9 +1,11 @@
 package smtp
 
 import (
+	"TMail/repo"
 	"errors"
 	"github.com/DusanKasan/parsemail"
 	"github.com/emersion/go-smtp"
+	"gorm.io/gorm"
 	"io"
 	"log"
 )
@@ -55,6 +57,26 @@ func (s *Session) Reset() {
 func (s *Session) Logout() error {
 	log.Println("Logout!", s)
 	s.Trace()
+	for _, mail := range s.mails {
+		_ = mail.message
+		err := repo.Transactional(func(tx *gorm.DB) error {
+			// save the mail
+			//tx.Save(domain.Mail{
+			//	Sender:         message.Sender.Name,
+			//	SenderDomain:   message.Sender.Address,
+			//	Receiver:       message.,
+			//	ReceiverDomain: "",
+			//	Subject:        "",
+			//	Headers:        nil,
+			//	Body:           "",
+			//})
+			// save the attachments
+			return nil
+		})
+		if err != nil {
+			return err
+		}
+	}
 	return nil
 }
 
